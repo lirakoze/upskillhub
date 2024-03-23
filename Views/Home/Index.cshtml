@@ -1,0 +1,138 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model CategoryDetailsModel
+@using TechTreeMVCWebApplication.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (Model.GroupedCategoryItemsByCategoryModels != null)
+{
+    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "user"))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Enrolled Courses</h2>
+        </div>
+        <div class="col-md-6 text-right">
+            <a asp-controller="CategoriesToUser" asp-action="Index" class="btn btn-outline-dark">Enroll to a Course</a>
+            
+        </div>
+    </div>
+
+    @if (Model.GroupedCategoryItemsByCategoryModels.Count() > 0)
+    {
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+
+                @foreach (var cat in Model.GroupedCategoryItemsByCategoryModels)
+                {
+                    <div class="card mt-2">
+                        <h4 class="card-header text-secondary bg-white" style="cursor:pointer" data-toggle="collapse" data-target="#collapse_@cat.Id" aria-expanded="false" aria-controls="collapse_@cat.Id">
+                            @cat.Title
+                        </h4>
+
+                        <div id="collapse_@cat.Id" class="collapse" aria-expanded="false" aria-controls="collapse_@cat.Id">
+                            <hr />
+                            @foreach (var item in cat.Items)
+                            {
+                                <div class="mt-2">
+                                    <img src="@item.MediaImagePath" width="100" height="100" class="img-thumbnail float-left mr-2" />
+                                    <h5 class="card-title mt-2">
+                                        <a class="text-dark" asp-controller="Content" asp-action="Index" asp-route-CategoryItemId="@item.CategoryItemId">@item.CategoryItemTitle</a>
+                                    </h5>
+                                    <p class="card-text text-dark mt-2">
+                                        @item.CategoryItemDescription
+                                    </p>
+                                </div>
+                            }
+                        </div>
+
+                     @* <a href="@Url.Action("DownloadCertificate", "Home", new { courseName = cat.Title, completionDate = DateTime.Now})" class="btn btn-primary">Download Certificate</a> *@
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <h4 class="mt-2 text-warning">You are currently not enrolled to any course</h4>
+        <h5 class="mt-2 text-warning">Select Course to Enroll</h5>
+
+        @if (Model.Categories != null && Model.Categories.Any())
+    {
+    <!-- Your code to display categories -->
+    
+        <!--Courses Section-->
+    <div id="Courses" class="courses section">
+    <h3 class="section-header"><i class="fas fa-laptop-code mr-2 text-info"></i>Courses</h3>
+    @{ const int itemsPerRow = 4;
+
+        var count = Model.Categories.Count() / itemsPerRow;
+        var catList = new List<Category>();         
+    
+    }
+    @for (int i = 0; i <= count; i++)
+    {
+        catList = Model.Categories.Skip(i * itemsPerRow).Take(itemsPerRow).ToList();
+
+        <partial name="_DashDisplayCardRowPartial" model="catList" />}
+</div>
+
+        <hr class="section-divider" />
+    }
+        else
+    {
+    <h4 class="mt-2 text-warning">No categories available </h4>
+    }
+
+    }
+    }
+}
+else
+{
+    <partial name="_DefaultHomePageContentPartial" model="@Model.Categories" />
+}
+
+
+
+
+<div class="modal fade" id="UserLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserLoginPartial" model="new LoginModel
+        {
+            Email = String.Empty,
+            Password = String.Empty,
+            RememberMe = false
+        }">
+</div>
+
+<div class="modal fade" id="UserRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserRegistrationPartial" model="new RegistrationModel
+        {
+            Email = String.Empty,
+            Password = String.Empty,
+            ConfirmPassword = String.Empty,
+            FirstName = String.Empty,
+            LastName = String.Empty,
+            PhoneNumber = String.Empty,
+            AcceptUserAgreement = false
+        }">
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_AuthScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+
+}

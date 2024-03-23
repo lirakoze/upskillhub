@@ -1,0 +1,58 @@
+name: dockercompose9224564402263309287
+services:
+  olp:
+    build:
+      context: C:\Users\Cheptoo\Downloads\Online-Learning-Platform\Online-Learning-Platform
+      dockerfile: Dockerfile
+    container_name: olp
+    depends_on:
+      server:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      ConnectionStrings:DefaultConnection: Server=server;Database=OnlineLearningPlatformDB;User
+        Id=sa;Password=Admin@12345;Encrypt=false
+    image: techtreemvcwebapplication
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: "5004"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5005"
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Cheptoo\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Cheptoo\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  server:
+    container_name: server
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: Admin@12345
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "1433"
+      protocol: tcp
+    restart: always
+networks:
+  default:
+    name: dockercompose9224564402263309287_default

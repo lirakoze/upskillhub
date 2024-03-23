@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+
+  server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  upskillhub:
+    image: ${DOCKER_REGISTRY-}techtreemvcwebapplication
+    build:
+      context: .
+      dockerfile: Dockerfile
