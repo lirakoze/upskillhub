@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\iraqo\\Desktop\\SEMESTER TWO\\Quality Apps\\upskillhub\\TechTreeMVCWebApplication.csproj": {}
+    "C:\\Users\\Owner\\Desktop\\project\\upskillhub\\TechTreeMVCWebApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\iraqo\\Desktop\\SEMESTER TWO\\Quality Apps\\upskillhub\\TechTreeMVCWebApplication.csproj": {
+    "C:\\Users\\Owner\\Desktop\\project\\upskillhub\\TechTreeMVCWebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\iraqo\\Desktop\\SEMESTER TWO\\Quality Apps\\upskillhub\\TechTreeMVCWebApplication.csproj",
+        "projectUniqueName": "C:\\Users\\Owner\\Desktop\\project\\upskillhub\\TechTreeMVCWebApplication.csproj",
         "projectName": "TechTreeMVCWebApplication",
-        "projectPath": "C:\\Users\\iraqo\\Desktop\\SEMESTER TWO\\Quality Apps\\upskillhub\\TechTreeMVCWebApplication.csproj",
-        "packagesPath": "C:\\Users\\iraqo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\iraqo\\Desktop\\SEMESTER TWO\\Quality Apps\\upskillhub\\obj\\",
+        "projectPath": "C:\\Users\\Owner\\Desktop\\project\\upskillhub\\TechTreeMVCWebApplication.csproj",
+        "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Owner\\Desktop\\project\\upskillhub\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\iraqo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
